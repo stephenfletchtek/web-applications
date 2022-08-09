@@ -23,8 +23,18 @@ describe Application do
     it "gets all albums and displays in html" do
       response = get('/albums')
       expect(response.status).to eq(200)
-      expect(response.body).to include("      <div>\n        Title: Doolittle\n")
-      expect(response.body).to include('Surfer Rosa')
+      expect(response.body).to include("      <div>\n        Title: Doolittle\n        Released: 1989\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Surfer Rosa\n        Released: 1988\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Waterloo\n        Released: 1974\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Super Trouper\n        Released: 1980\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Bossanova\n        Released: 1990\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Lover\n        Released: 2019\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Folklore\n        Released: 2020\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: I Put a Spell on You\n        Released: 1965\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Baltimore\n        Released: 1978\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Here Comes the Sun\n        Released: 1971\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Fodder on My Wings\n        Released: 1982\n      </div>")
+      expect(response.body).to include("      <div>\n        Title: Ring Ring\n        Released: 1973\n      </div>")
     end
   end
 
