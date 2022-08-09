@@ -8,7 +8,8 @@ describe Application do
 
   context "GET to /hello" do
     it "returns 200 and the content" do
-      response = get('/hello?name=Julia, Mary, Karim')
+      # response = get('/hello?name=Julia, Mary, Karim')
+      response = get('/hello', name: 'Julia, Mary, Karim')
       expect(response.status).to eq(200)
       expect(response.body).to include('<h1>Hello Julia, Mary, Karim!</h1>')
     end
