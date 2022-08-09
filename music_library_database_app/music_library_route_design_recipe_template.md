@@ -16,6 +16,14 @@ title=Voyage
 release_year=2022
 artist_id=2
 
+GET
+/artist
+
+POST
+/artists
+name=Wild nothing
+genre=Indie
+
 ## 2. Design the Response
 
 The route might return different responses, depending on the result.
@@ -25,6 +33,16 @@ For example, a route for a specific blog post (by its ID) might return `200 OK` 
 Your response might return plain text, JSON, or HTML code. 
 
 _Replace the below with your own design. Think of all the different possible responses your route will return._
+
+```html
+<!-- Response when the post is found: 200 OK -->
+<!-- No content -->
+```
+
+```html
+<!-- Response when the post is found: 200 OK -->
+<!-- Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos -->
+```
 
 ```html
 <!-- Response when the post is found: 200 OK -->
@@ -48,6 +66,27 @@ artist_id=2
 # Expected response:
 
 Response for 200 OK
+```
+
+```
+# Request:
+
+GET /artists
+
+# Expected response:
+
+Response for 200 OK
+Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos
+```
+
+```
+# Request:
+
+POST /artists
+
+Body parameters:
+name=Wild nothing
+genre=Indie
 ```
 
 ## 4. Encode as Tests Examples
@@ -74,14 +113,23 @@ describe Application do
       expect(latest_album.artist_id).to eq('2')
     end
   end
-end
 
-    # it 'returns 404 Not Found' do
-    #   response = get('/posts?id=276278')
+  context "GET /artists" do
+    it "returns 200OK and a list of artists" do
+      response = get('/artists')
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos')
+    end
+  end
 
-    #   expect(response.status).to eq(404)
-    #   # expect(response.body).to eq(expected_response)
-    # end
+  context "POST /artists" do
+    it "returns 200 OK" do
+      response = post('/artists', name: 'Wild nothing', genre: 'Indie')
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('')
+      response = get('/artists')
+      expect(response.body).to include('Wild nothing')
+    end
   end
 end
 ```
