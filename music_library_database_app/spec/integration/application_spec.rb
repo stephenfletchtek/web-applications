@@ -103,5 +103,22 @@ describe Application do
       response = get('/artists')
       expect(response.body).to include('Wild nothing')
     end
+
+    context "Get /albums/new" do
+      it "gets form and returns 200 OK" do
+        response = get('/albums/new')
+        expect(response.status).to eq(200)
+        expect(response.body).to include('<form action="/albums" method="POST">')
+        expect(response.body).to include('<input type="text" name="title">')
+      end
+    end
+
+    context "Post /albums" do
+      it "creates album and shows confirmation page" do
+        response = post('/albums', title: 'Big Bad Wolf', release_year: '2011', artist_id: '6')
+        expect(response.status).to eq (200)
+        expect(response.body).to include('')
+      end
+    end
   end
 end
