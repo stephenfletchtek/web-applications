@@ -42,6 +42,8 @@ class Application < Sinatra::Base
     new_album.artist_id = params[:artist_id]
     repo = AlbumRepository.new
     repo.create(new_album)
+    @confirm = repo.all[-1]
+    erb(:album_created)
   end
 
   get '/artists' do

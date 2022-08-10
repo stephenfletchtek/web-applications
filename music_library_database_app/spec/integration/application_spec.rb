@@ -89,7 +89,7 @@ describe Application do
     it 'returns 200 OK' do
       response = post('/albums', title: 'Voyage', release_year: '2022', artist_id: '2')
       expect(response.status).to eq(200)
-      expect(response.body).to eq('')
+      expect(response.body).to include('Voyage')
       response = get('/albums')
       expect(response.body).to include('Voyage')
     end
@@ -117,7 +117,7 @@ describe Application do
       it "creates album and shows confirmation page" do
         response = post('/albums', title: 'Big Bad Wolf', release_year: '2011', artist_id: '6')
         expect(response.status).to eq (200)
-        expect(response.body).to include('')
+        expect(response.body).to include('<h1>Album added: Big Bad Wolf</h1>')
       end
     end
   end
