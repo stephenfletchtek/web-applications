@@ -38,6 +38,18 @@ describe Application do
     end
   end
 
+  context "GET /artists" do
+    it "returns 200 OK and a list of artists with links" do
+      response = get('/artists')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="/artists/1">Pixies</a>')
+      expect(response.body).to include('<a href="/artists/2">ABBA</a>')
+      expect(response.body).to include('<a href="/artists/3">Taylor Swift</a>')
+      expect(response.body).to include('<a href="/artists/4">Nina Simone</a>')
+      expect(response.body).to include('<a href="/artists/5">Kiasmos</a>')
+    end
+  end
+
   context "GET /albums/:id" do
     it "returns 200 OK and displays album/1 retrieved" do
       response = get('/albums/1')
@@ -57,6 +69,22 @@ describe Application do
 
   end
 
+  context "GET /artists/:id" do
+    it "returns 200 OK and displays artist/1 retreived" do
+      response = get('/artists/1')
+      expect(response.status).to eq (200)
+      expect(response.body).to include('<h1>Pixies</h1>')
+      expect(response.body).to include('Genre: Rock')
+    end
+
+    it "returns 200 OK and displays artist/2 retreived" do
+      response = get('/artists/2')
+      expect(response.status).to eq (200)
+      expect(response.body).to include('<h1>ABBA</h1>')
+      expect(response.body).to include('Genre: Pop')
+    end
+  end
+
   context "POST /albums" do
     it 'returns 200 OK' do
       response = post('/albums', title: 'Voyage', release_year: '2022', artist_id: '2')
@@ -64,14 +92,6 @@ describe Application do
       expect(response.body).to eq('')
       response = get('/albums')
       expect(response.body).to include('Voyage')
-    end
-  end
-
-  context "GET /artists" do
-    it "returns 200OK and a list of artists" do
-      response = get('/artists')
-      expect(response.status).to eq(200)
-      expect(response.body).to eq('Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos')
     end
   end
 
