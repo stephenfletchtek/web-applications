@@ -66,7 +66,6 @@ describe Application do
       expect(response.body).to include('Release year: 1988')
       expect(response.body).to include('Artist: Pixies')
     end
-
   end
 
   context "GET /artists/:id" do
@@ -127,6 +126,18 @@ describe Application do
       end
     end
 
+    context "Get /artists/new" do
+      it "gets form and returns 200 OK" do
+        response = get('/artists/new')
+        expect(response.status).to eq(200)
+        expect(response.body).to include('<form action="/artists" method="POST">')
+        expect(response.body).to include('<label>Artist Name: </label>')
+        expect(response.body).to include('<input type="text" name="name">')
+        expect(response.body).to include('<label>Genre: </label>')
+        expect(response.body).to include('<input type="text" name="genre">')
+        expect(response.body).to include('<input type="submit" value="submit">')
+      end
+    end
     
     
   end
