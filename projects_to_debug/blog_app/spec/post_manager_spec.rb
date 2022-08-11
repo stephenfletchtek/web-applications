@@ -18,7 +18,7 @@ describe PostManager do
 
     manager.add_post(new_post_coding)
     manager.add_post(new_post_music)
-
+   
     expect(manager.all_posts_by_tag('coding')).to include(new_post_coding)
     expect(manager.all_posts_by_tag('coding')).to_not include(new_post_music)
   end

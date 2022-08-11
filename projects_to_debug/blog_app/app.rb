@@ -14,16 +14,17 @@ class Application < Sinatra::Base
     @post_manager = PostManager.instance
   end
 
-  get '/' do
-    posts = @post_manager.all_posts
+  # get posts for a given tag
+  # this was 'post'
+  get '/tag/:tag' do
+    @posts = @post_manager.all_posts_by_tag(params[:tag])
 
     return erb(:index)
   end
 
-  # get posts for a given tag
-  post '/tag/:tag' do
-    @posts = @post_manager.all_posts_by_tag(params[:tag])
-
+  get '/' do
+    # missed the @ on posts
+    @posts = @post_manager.all_posts
     return erb(:index)
   end
 

@@ -1,4 +1,3 @@
-
 require "spec_helper"
 require "rack/test"
 require_relative '../../app'
@@ -20,7 +19,6 @@ describe Application do
   context 'GET /' do
     it 'shows the list of posts' do
       response = get('/')
-
       expect(response.body).to include('Test programming post')
       expect(response.body).to include('Test cooking post')
     end
@@ -29,7 +27,6 @@ describe Application do
   context 'GET /tag/:tag' do
     it 'displays the posts tagged with cooking' do
       response = get('/tag/cooking')
-
       expect(response.body).to include('Test cooking post')
       expect(response.body).to_not include('Test programming post')
     end

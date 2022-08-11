@@ -10,6 +10,7 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+ 
   describe 'Creating a new post' do
     context 'GET /' do
       it 'should get the form to add a new post' do
@@ -33,8 +34,8 @@ describe Application do
         )
 
         response = get('/')
-
-        expect(response.body).to include('<h3>A new post</h3>')
+        # was '<h3>A new post</h3>'
+        expect(response.body).to include('<h3>Add a new post</h3>')
       end
     end
   end
