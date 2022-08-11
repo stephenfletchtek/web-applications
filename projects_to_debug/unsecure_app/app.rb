@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require "sinatra/reloader"
+require 'cgi'
 
 class Application < Sinatra::Base
   configure :development do
@@ -11,8 +12,18 @@ class Application < Sinatra::Base
   end
 
   post '/hello' do
-    @name = params[:name]
+    if invalid_input?
+      status 400
+      return ''
+    else
+      @name = params[:name]
+      return erb(:hello)
+    end
+  end
 
-    return erb(:hello)
+  def invalid_input?
+    return true if params[:name] == nil
+    return true if params[:name] != CGI.escapeHTML(params[:name])
+    return true if params[:name].match(/\W+/)
   end
 end
