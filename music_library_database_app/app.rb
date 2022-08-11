@@ -74,10 +74,21 @@ class Application < Sinatra::Base
   end
 
   post '/artists' do
-    new_artist = Artist.new
-    new_artist.name = params[:name]
-    new_artist.genre = params[:genre]
-    repo = ArtistRepository.new
-    repo.create(new_artist)
+    if invalid_artist_parameters?
+      status 400
+      return ''
+    else
+      new_artist = Artist.new
+      new_artist.name = params[:name]
+      new_artist.genre = params[:genre]
+      repo = ArtistRepository.new
+      repo.create(new_artist)
+      @new_artist = new_artist
+      erb(:artist_created)
+    end
+  end
+
+  def invalid_artist_parameters?
+    return params[:name] == nil || params[:genre] == nil
   end
 end
