@@ -110,6 +110,7 @@ describe Application do
         expect(response.status).to eq(200)
         expect(response.body).to include('<form action="/albums" method="POST">')
         expect(response.body).to include('<input type="text" name="title">')
+        expect(response.body).to include('<option value=1>Pixies</option>')
       end
     end
 
@@ -119,6 +120,14 @@ describe Application do
         expect(response.status).to eq (200)
         expect(response.body).to include('<h1>Album added: Big Bad Wolf</h1>')
       end
+
+      it "should validate album parameters" do
+        response = post('/albums', wrong_label: 'OK Computer', wrong_2: 1989, wrong_3: 4)
+        expect(response.status).to eq(400)
+      end
     end
+
+    
+    
   end
 end

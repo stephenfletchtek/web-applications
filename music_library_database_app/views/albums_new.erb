@@ -2,15 +2,22 @@
   <head></head>
   <body>
     <form action="/albums" method="POST">
-      <label>Album Title: </label>
-      <input type="text" name="title">
-
-      <label>Release Year: </label>
-      <input type="text" name="release_year">
-
-      <label>Artist id: </label>
-      <input type="text" name="artist_id">
-
+      <div>
+        <label>Album Title: </label>
+        <input type="text" name="title">
+      </div>
+      <div>
+        <label>Release Year: </label>
+        <input type="text" name="release_year">
+      </div>
+      <div>
+        <label>Artist: </label>
+        <select name="artist_id">
+          <% @artists.each do |artist| %>
+            <option value=<%= artist.id %>><%= artist.name %></option>
+          <% end %>
+        </select>
+      </div>
       <input type="submit" value="Submit">
     </form>
   </body>
