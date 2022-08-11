@@ -35,9 +35,9 @@ describe Application do
     end
     
     it "return status 400 with rogue input" do
-      rogue = '<script>window.alert("You'
-      rogue += "'"
-      rogue += 've been p0wn3d!!!!"); document.location.href="https://www.youtube.com/watch?v=34Ig3X59_qA";</script>'
+      rogue = '<script>window.alert("You\'ve been p0wn3d!!!!"); '\
+        'document.location.href="https://www.youtube.com/watch?v=34Ig3X59_qA";'\
+        '</script>'
       response = post('/hello', name: rogue)
       expect(response.status).to eq(400)
       expect(response.body).to eq('')
